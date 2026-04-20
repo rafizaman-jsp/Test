@@ -1,0 +1,305 @@
+<%@ page import="java.sql.*" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CityCare Hospital</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="circularNab.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+    	@media (max-width: 700px) {
+    		.email1 {
+                display: none;
+            }
+    	}
+    
+        @media (max-width: 430px) {
+            .contact1, .email1 {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body class="home-page-body">
+
+<header class="site-header">
+
+    <div class="header-content">
+        <img class="hospital-logo">
+        <div class="hospital-name">CityCare General Hospital</div>
+    </div>
+
+    <nav class="nav-container">
+
+        <ul class="nav-menu">
+
+            <!-- <%
+            boolean isDoctor = session.getAttribute("doctorId") != null;
+            boolean isAdmin = session.getAttribute("adminLoggedIn") != null;
+            boolean isPatient = session.getAttribute("patientId") != null;
+            %> -->
+
+            <!-- Home -->
+            <li class="nav-item">
+                <a href="Home.jsp">
+                    <i class="fas fa-home"></i>
+                    <span class="nav-text">Home</span>
+                </a>
+            </li>
+
+            <!-- Dynamic Panel -->
+            <!-- <% if(isDoctor){ %> -->
+            <li class="nav-item">
+                <a href="DoctorPanel.jsp">
+                    <i class="fas fa-user-md"></i>
+                    <span class="nav-text">Doctor Panel</span>
+                </a>
+            </li>
+            <!-- <% } else if(isAdmin){ %> -->
+            <li class="nav-item">
+                <a href="AdminPanel.jsp">
+                    <i class="fas fa-user-shield"></i>
+                    <span class="nav-text">Admin Panel</span>
+                </a>
+            </li>
+            <!-- <% } else if(isPatient){ %> -->
+            <li class="nav-item">
+                <a href="PatientPanel.jsp">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-text">Patient Panel</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="appointment.jsp">
+                    <i class="fas fa-calendar-check"></i>
+                    <span class="nav-text">Book Appointment</span>
+                </a>
+            </li>
+            <!-- <% } %> -->
+
+            <!-- Static -->
+            <li class="nav-item">
+                <a href="#doctor-section">
+                    <i class="fas fa-user"></i>
+                    <span class="nav-text">Doctors</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#contact-footer">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="nav-text">Contact</span>
+                </a>
+            </li>
+
+            <!-- Login / Logout -->
+            <!-- <% if(isDoctor || isAdmin || isPatient){ %> -->
+            <li class="nav-item">
+                <a href="Logout.jsp">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="nav-text">Logout</span>
+                </a>
+            </li>
+            <!-- <% } else { %> -->
+            <li class="nav-item">
+                <a href="login.jsp">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span class="nav-text">Log In</span>
+                </a>
+            </li>
+            <% } %>
+
+        </ul>
+        <ul style="list-style: none;"> <li class="nav-item"></li> </ul>
+
+        <!-- Circular Menu -->
+        <div class="container" id="menuContainer">
+
+            <input type="checkbox" id="mainButton">
+
+            <label for="mainButton">
+                <div class="menu-icon"></div>
+            </label>
+
+            <div class="bubble-wrapper">
+
+                <!-- Home -->
+                <a href="Home.jsp" class="bubble">
+                    <i class="fas fa-home"></i>
+                    <span class="label">Home</span>
+                </a>
+
+                <!-- Dynamic -->
+                <!-- <% if(isDoctor){ %> -->
+                <a href="DoctorPanel.jsp" class="bubble">
+                    <i class="fas fa-user-md"></i>
+                    <span class="label">Doctor Panel</span>
+                </a>
+                <!-- <% } else if(isAdmin){ %> -->
+                <a href="AdminPanel.jsp" class="bubble">
+                    <i class="fas fa-user-shield"></i>
+                    <span class="label">Admin Panel</span>
+                </a>
+                <!-- <% } else if(isPatient){ %> -->
+                <a href="PatientPanel.jsp" class="bubble">
+                    <i class="fas fa-user"></i>
+                    <span class="label">Patient Panel</span>
+                </a>
+
+                <a href="appointment.jsp" class="bubble">
+                    <i class="fas fa-calendar-check"></i>
+                    <span class="label">Book Appointment</span>
+                </a>
+                <!-- <% } %> -->
+
+                <!-- Static -->
+                <a href="#doctor-section" class="bubble">
+                    <i class="fas fa-user"></i>
+                    <span class="label">Doctors</span>
+                </a>
+
+                <a href="#contact-footer" class="bubble">
+                    <i class="fas fa-info-circle"></i>
+                    <span class="label">Contact</span>
+                </a>
+
+                <!-- Login / Logout -->
+                <% if(isDoctor || isAdmin || isPatient){ %>
+                <a href="logOut.jsp" class="bubble">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span class="label">Logout</span>
+                </a>
+                <!-- <% } else { %> -->
+                <a href="login.jsp" class="bubble">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <span class="label">Log In</span>
+                </a>
+                <!-- <% } %> -->
+
+            </div>
+        </div>
+
+    </nav>
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<section class="main-content-wrapper">
+
+    <section class="about-section">
+        <h2>About Our Hospital</h2>
+        <p>
+            CityCare General Hospital provides modern, reliable and compassionate
+            healthcare services. Our expert doctors and advanced facilities ensure
+            quality treatment and patient safety.
+        </p>
+    </section>
+
+
+    <section class="doctor-section" id="doctor-section">
+
+        <h2>Available Doctors</h2>
+
+        <table class="table1">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Specialization</th>
+                    <th class="contact1">Contact</th>
+                    <th class="email1">Email</th>
+                    <th>Schedule</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+<!-- 
+            <%
+            Connection con=null; PreparedStatement ps=null; ResultSet rs=null;
+            try{
+                Class.forName("oracle.jdbc.driver.OracleDriver");
+                con=DriverManager.getConnection(
+                    "jdbc:oracle:thin:@localhost:1521:xe",
+                    "c##idp1_1","2324"
+                );
+
+                String sql="SELECT d.doctor_id, d.doctor_name, d.specialization, d.contact, d.email, " +
+                "LISTAGG(a.day_of_week, ',') WITHIN GROUP (ORDER BY a.day_of_week) days " +
+                "FROM doctors d LEFT JOIN doctor_availability a " +
+                "ON d.doctor_id = a.doctor_id " +
+                "GROUP BY d.doctor_id, d.doctor_name, d.specialization, d.contact, d.email " +
+                "ORDER BY d.doctor_name";
+
+                ps=con.prepareStatement(sql);
+                rs=ps.executeQuery();
+
+                while(rs.next()){
+            %> -->
+
+            <tr>
+                <td><%= rs.getString("doctor_name") %>, <%= rs.getInt("doctor_id") %></td>
+                <td><%= rs.getString("specialization") %></td>
+                <td class="contact1"><%= rs.getString("contact") %></td>
+                <td class="email1"><%= rs.getString("email") %></td>
+                <td><%= rs.getString("days")==null ? "-" : rs.getString("days") %></td>
+                <td>
+                    <a class="book-button"
+                       href="appointment.jsp?doctor_id=<%=rs.getInt("doctor_id")%>">
+                       Book
+                    </a>
+                </td>
+            </tr>
+
+            <!-- <% } } catch(Exception e){ %> -->
+
+            <tr>
+                <td colspan="6" style="color:red;">
+                    Error: <%= e.getMessage() %>
+                </td>
+            </tr>
+<!-- 
+            <% } finally{
+                try{ if(rs!=null)rs.close(); }catch(Exception x){}
+                try{ if(ps!=null)ps.close(); }catch(Exception x){}
+                try{ if(con!=null)con.close(); }catch(Exception x){}
+            } %> -->
+
+            </tbody>
+        </table>
+
+    </section>
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer" id="contact-footer">
+    <div class="footer-info">
+        <p>© 2025 Patient Management System</p>
+        <p>Email: info@pmsystem.com</p>
+        <p>Phone: +880-1234-567890</p>
+    </div>
+
+    <div class="map-container">
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18..."
+            width="100%" height="250"
+            style="border:0;" allowfullscreen=""
+            loading="fast">
+        </iframe>
+    </div>
+</footer>
+
+<script src="circularNab.js"></script>
+
+</body>
+</html>
