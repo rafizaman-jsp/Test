@@ -1,0 +1,384 @@
+
+/* =======================
+   GLOBAL
+======================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Segoe UI, Arial, sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+    color:#222;
+
+    /* FIX: sticky footer */
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+}
+
+/* =======================
+   HEADER
+======================= */
+
+.site-header{
+    background:#0d6efd;
+    color:white;
+    padding:20px;
+}
+
+.header-content{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.hospital-logo{ 
+	background-image: url('hospital1.jpg');
+    width:60px;
+    height:60px;
+}
+
+.hospital-name{
+    font-size:24px;
+    font-weight:700;
+}
+
+/* =======================
+   NAVIGATION
+======================= */
+
+.nav-container{
+    background:#111827;
+}
+
+.nav-menu{
+    list-style:none;
+    display:flex;
+    gap:10px;
+    padding:10px 20px;
+}
+
+.nav-item a{
+    color:white;
+    text-decoration:none;
+    padding:8px 14px;
+    border-radius:6px;
+    display:inline-block;
+}
+
+.nav-item a:hover{
+    background:#2563eb;
+}
+
+/* =======================
+   PAGE BODY TYPES
+======================= */
+
+.home-page-body .main-content-wrapper {
+   
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel-page-body .main-content-wrapper {
+    background-color: #f0f2f5;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.appointment-page-body{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    padding:30px 15px;
+}
+
+.panel-page-body{
+    padding:20px;
+}
+
+.home-page-body{
+    padding-bottom:40px;
+}
+
+/* =======================
+   FORM CONTAINERS
+======================= */
+
+.form-container{
+    width:100%;
+    max-width:420px;
+    margin-top:30px;
+}
+
+.appointment-form{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.appointment-form h3,
+.appointment-form h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+/* =======================
+   FORM INPUTS
+======================= */
+
+.appointment-form label{
+    font-weight:600;
+    margin-top:12px;
+    display:block;
+}
+
+.appointment-form input,
+.appointment-form select{
+    width:100%;
+    padding:10px;
+    margin-top:6px;
+    border:1px solid #d1d5db;
+    border-radius:6px;
+    font-size:14px;
+}
+
+.appointment-form input:focus,
+.appointment-form select:focus{
+    outline:none;
+    border-color:#2563eb;
+}
+
+.or-text{
+	text-align: center;
+}
+
+/* =======================
+   BUTTONS
+======================= */
+
+button,
+input[type="submit"],
+.action-button{
+    width:100%;
+    margin-top:18px;
+    padding:11px;
+    border:none;
+    border-radius:6px;
+    background:#2563eb;
+    color:white;
+    font-weight:600;
+    cursor:pointer;
+    text-align:center;
+    display:inline-block;
+    text-decoration:none;
+}
+
+button:hover,
+input[type="submit"]:hover,
+.action-button:hover{
+    background:#1e40af;
+}
+
+.signup-button{
+    display:block;
+    text-align:center;
+    background:#10b981;
+    padding:10px;
+    border-radius:6px;
+    color:white;
+    text-decoration:none;
+    margin-top:10px;
+}
+
+.signup-button:hover{
+    background:#059669;
+}
+
+/* =======================
+   TABLES
+======================= */
+
+.table1{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+    background:white;
+    box-shadow:0 4px 10px rgba(0,0,0,0.06);
+}
+
+.table1 th{
+    background:#1f2937;
+    color:white;
+    padding:12px;
+    text-align:left;
+}
+
+.table1 td{
+    padding:10px;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.table1 tr:hover{
+    background:#f3f4f6;
+}
+
+/* =======================
+   MAIN CONTENT WRAPPER
+======================= */
+
+.main-content-wrapper{
+    max-width:1100px;
+    margin:0 auto;
+}
+
+/* =======================
+   SECTIONS
+======================= */
+
+.section,
+.section1{
+    margin-top:25px;
+}
+
+/* =======================
+   HOME PAGE BLOCKS
+======================= */
+
+.about-section{
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    margin:20px auto;
+    max-width:1000px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.07);
+}
+
+.doctor-section{
+    max-width:1000px;
+    margin:20px auto;
+}
+
+/* =======================
+   BOOK BUTTON
+======================= */
+
+.book-button{
+    background:#10b981;
+    color:white;
+    padding:6px 12px;
+    border-radius:6px;
+    text-decoration:none;
+}
+
+.book-button:hover{
+    background:#059669;
+}
+
+/* =======================
+   MESSAGES
+======================= */
+
+.success-message{
+    color:#16a34a;
+    text-align:center;
+    font-weight:600;
+}
+
+.error-message{
+    color:#dc2626;
+    text-align:center;
+    font-weight:600;
+}
+
+/* =======================
+   FOOTER (FIXED)
+======================= */
+
+.footer {
+    background-color: #0077b6;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    margin-top: auto;
+    width: 100%;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+
+    /* FIX */
+    overflow:hidden;
+}
+
+/* CLEAR FLOAT ISSUE */
+.footer::after{
+    content:"";
+    display:block;
+    clear:both;
+}
+
+.footer-info {
+    float: left;
+    width: 45%;
+    text-align: center;
+    margin: 20px 0;
+    padding: 30px;
+}
+
+.map-container {
+    float: right;
+    width: 40%;
+    height: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 30px ;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* =======================
+   CALENDAR MODAL SUPPORT
+======================= */
+
+.calendar-modal{
+    backdrop-filter:blur(2px);
+}
+
+/* =======================
+   SMALL SCREENS
+======================= */
+
+@media(max-width:600px){
+
+.nav-menu {
+        flex-direction: row;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    .nav-item {
+        padding: 5px 0;
+    }
+
+.header-content{
+    flex-direction:column;
+    text-align:center;
+}
+
+.table1 th,
+.table1 td{
+    font-size:13px;
+}
+
+}
