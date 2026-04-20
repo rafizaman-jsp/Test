@@ -1,0 +1,161 @@
+:root {
+    --radius: 120px;
+    --size: 60px;
+}
+
+.bubble {
+    text-decoration: none;
+    color: white;
+}
+
+a {
+    color: wheat;
+    /* Inherit color from nav-item */
+    text-decoration: none;
+    /* Remove underline */
+    display: block;
+    /* Make the whole area clickable */
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.container {
+    display: none;
+    position: absolute;
+    width: 250px;
+    height: 70px;
+    touch-action: none;
+    left: 0;
+}
+
+#mainButton {
+    display: none;
+}
+
+label[for="mainButton"] {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+    z-index: 30;
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, orange, darkorange);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .25);
+}
+
+/* Hamburger */
+.menu-icon {
+    position: relative;
+    width: 28px;
+    height: 2px;
+    background: white;
+}
+
+.menu-icon::before,
+.menu-icon::after {
+    content: '';
+    position: absolute;
+    width: 28px;
+    height: 2px;
+    background: white;
+}
+
+.menu-icon::before {
+    top: -8px;
+}
+
+.menu-icon::after {
+    top: 8px;
+}
+
+#mainButton:checked+label .menu-icon {
+    background: transparent;
+}
+
+#mainButton:checked+label .menu-icon::before {
+    transform: rotate(45deg);
+    top: 0;
+}
+
+#mainButton:checked+label .menu-icon::after {
+    transform: rotate(-45deg);
+    top: 0;
+}
+
+/* Wrapper */
+.bubble-wrapper {
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    transform: translate(-50%, -50%);
+}
+
+/* Bubble */
+.bubble {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--size);
+    height: var(--size);
+    margin-left: calc(-1 * var(--size) / 2);
+    margin-top: calc(-1 * var(--size) / 2);
+    border-radius: 50%;
+    background: linear-gradient(135deg, #e53935, #ff5252);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    opacity: 0;
+    transform: translate(0, 0);
+    transition: transform 0.45s cubic-bezier(.2, .9, .2, 1), opacity 0.25s;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .15);
+}
+
+.bubble:hover {
+    transform: scale(2.1);
+}
+
+/* LABEL OUTSIDE */
+.label {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translate(10px, -50%);
+    white-space: nowrap;
+    font-size: 13px;
+    background: white;
+    color: #333;
+    padding: 4px 8px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    /* pointer-events: none; */
+    transition: opacity 0.3s;
+}
+
+#mainButton:checked~.bubble-wrapper .bubble {
+    opacity: 1;
+}
+
+#mainButton:checked~.bubble-wrapper .label {
+    opacity: 1;
+}
+
+
+/* --- Responsive Adjustments (Optional but Recommended) --- */
+@media (max-width: 600px) {
+    .container {
+        display: block;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+}
