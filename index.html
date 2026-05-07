@@ -1,7 +1,7 @@
-<%@ page import="java.sql.*" %>
+<!--<%@ page import="java.sql.*" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%
+<!--%
 /* ========= ACCESS GUARD ========= */
 if(session.getAttribute("adminLoggedIn") == null){
     response.sendRedirect("login.jsp");
@@ -10,7 +10,7 @@ if(session.getAttribute("adminLoggedIn") == null){
 
 String adminName = (String) session.getAttribute("adminName");
 if(adminName == null) adminName = "Admin";
-%>
+%-->
 
 <!DOCTYPE html>
 <html lang="en">
