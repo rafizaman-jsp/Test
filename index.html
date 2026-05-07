@@ -1,39 +1,172 @@
-<!--<%@ page import="java.sql.*" %>
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>-->
+<%@ page import="java.sql.*" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<%
+/* ========= ACCESS GUARD ========= */
+if(session.getAttribute("adminLoggedIn") == null){
+    response.sendRedirect("login.jsp");
+    return;
+}
+
+String adminName = (String) session.getAttribute("adminName");
+if(adminName == null) adminName = "Admin";
+%>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>CityCare Hospital</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Admin Panel</title>
+<link rel="stylesheet" href="style.css">
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="circularNab.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+    /* 1. SKELETON STYLES */
+    .skeleton-box {
+        background-color: #e2e2e2;
+        position: relative;
+        overflow: hidden;
+        border-radius: 4px;
+        height: 20px; /* Default height for text lines */
+    }
 
-    <style>
-    	@media (max-width: 700px) {
-    		.email1 {
-                display: none;
-            }
-    	}
-    
-        @media (max-width: 430px) {
-            .contact1, .email1 {
-                display: none;
-            }
-        }
-    </style>
+    .skeleton-box::after {
+        content: "";
+        position: absolute;
+        top: 0; right: 0; bottom: 0; left: 0;
+        transform: translateX(-100%);
+        background-image: linear-gradient(90deg, 
+            rgba(255,255,255,0) 0, 
+            rgba(255,255,255,0.3) 50%, 
+            rgba(255,255,255,0) 100%);
+        animation: shimmer 1.5s infinite;
+    }
+
+    @keyframes shimmer {
+        100% { transform: translateX(100%); }
+    }
+
+    /* 2. INITIAL STATE */
+    #main-data-content {
+        display: none; /* Hide real content initially */
+    }
+
+    /* Keep table structure for skeleton to match alignment */
+    .skeleton-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .skeleton-table td, .skeleton-table th {
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+    }
+</style>
 </head>
 
-<body class="home-page-body">
+<body class="panel-page-body">
 
-<header class="site-header">
+<nav class="nav-container">
+<ul class="nav-menu">
+    <li class="nav-item"><a href="Home.jsp">Home</a></li>
+    <li class="nav-item"><a href="addDoctor.jsp">Add Doctor</a></li>
+    <li class="nav-item"><a href="DoctorList.jsp">Doctors</a></li>
+    <li class="nav-item"><a href="Logout.jsp">Logout</a></li>
+</ul>
+</nav>
 
-    <div class="header-content">
-        <img class="hospital-logo">
-        <div class="hospital-name">CityCare General Hospital</div>
+<section class="main-content-wrapper">
+
+    <div id="skeleton-wrapper">
+        <div class="skeleton-box" style="width: 250px; height: 35px; margin: 0 auto 25px auto;"></div>
+        <div class="skeleton-box" style="width: 150px; height: 25px; margin-bottom: 15px;"></div>
+        
+        <table class="skeleton-table">
+            <thead>
+                <tr>
+                    <th><div class="skeleton-box"></div></th>
+                    <th><div class="skeleton-box"></div></th>
+                    <th><div class="skeleton-box"></div></th>
+                    <th><div class="skeleton-box"></div></th>
+                    <th><div class="skeleton-box"></div></th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for(int i=0; i<5; i++) { %>
+                <tr>
+                    <td><div class="skeleton-box"></div></td>
+                    <td><div class="skeleton-box" style="width: 80%;"></div></td>
+                    <td><div class="skeleton-box" style="width: 70%;"></div></td>
+                    <td><div class="skeleton-box" style="width: 90%;"></div></td>
+                    <td><div class="skeleton-box" style="width: 60%;"></div></td>
+                </tr>
+                <% } %>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="main-data-content">
+        <h2 style="text-align:center;">
+            Welcome, <%= adminName %> 👨‍💼
+        </h2>
+
+        <h3 style="margin-top:25px;">All Appointments</h3>
+
+        <table class="table1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Patient</th>
+                    <th>Doctor</th>
+                    <th>Date</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <%
+                // ... Your Existing Database Connection & Loop Logic ...
+                Connection con = null;
+                PreparedStatement ps = null;
+                ResultSet rs = null;
+                try {
+                    Class.forName("oracle.jdbc.driver.OracleDriver");
+                    con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","c##idp1_1","2324");
+                    String sql = "SELECT a.appointment_id, p.patient_name, d.doctor_name, a.appointment_date, a.status FROM appointments a JOIN patients p ON a.patient_id = p.patient_id JOIN doctors d ON a.doctor_id = d.doctor_id ORDER BY a.appointment_date DESC";
+                    ps = con.prepareStatement(sql);
+                    rs = ps.executeQuery();
+                    while(rs.next()){
+                %>
+                <tr>
+                    <td><%= rs.getInt("appointment_id") %></td>
+                    <td><%= rs.getString("patient_name") %></td>
+                    <td><%= rs.getString("doctor_name") %></td>
+                    <td><%= rs.getDate("appointment_date") %></td>
+                    <td><%= rs.getString("status") %></td>
+                </tr>
+                <%
+                    }
+                } catch(Exception e){
+                    out.println("<tr><td colspan='5' style='color:red;'>Error: " + e.getMessage() + "</td></tr>");
+                } finally {
+                    if(rs!=null) rs.close();
+                    if(ps!=null) ps.close();
+                    if(con!=null) con.close();
+                }
+                %>
+            </tbody>
+        </table>
+    </div>
+
+</section>
+
+<script>
+    window.addEventListener("load", function() {
+        // When the page is fully loaded (including database render)
+        document.getElementById("skeleton-wrapper").style.display = "none";
+        document.getElementById("main-data-content").style.display = "block";
+    });
+</script>
+
+</body>
+</html>
     </div>
 
     <nav class="nav-container">
